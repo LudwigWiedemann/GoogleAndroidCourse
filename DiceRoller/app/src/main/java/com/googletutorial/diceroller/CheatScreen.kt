@@ -17,19 +17,19 @@ class CheatScreen : AppCompatActivity() {
 
         val buttonStart: Button = findViewById(R.id.startCheating_button)
         val buttonAdd: Button = findViewById(R.id.addToList_button)
-        val buttonClear : Button = findViewById(R.id.clearList_button)
+        val buttonClear: Button = findViewById(R.id.clearList_button)
         val editTextToAdd: EditText = findViewById(R.id.editTextNumberDecimal)
 
         buttonClear.setOnClickListener {
             clear()
         }
 
-        buttonStart.setOnClickListener {
-            startCheating()
-        }
-
         buttonAdd.setOnClickListener {
             addNumberToList(editTextToAdd)
+        }
+
+        buttonStart.setOnClickListener {
+            startCheating()
         }
     }
 
@@ -41,6 +41,7 @@ class CheatScreen : AppCompatActivity() {
                 listOfNumbers.add(Random().nextInt(6) + 1)
             }
         }
+
         intent.putExtra("listOfNumbers", listOfNumbers)
         startActivity(intent)
     }
@@ -55,8 +56,9 @@ class CheatScreen : AppCompatActivity() {
             Toast.makeText(this, "Du Larry", Toast.LENGTH_SHORT).show()
             return
         }
+
         val valueToAdd = editTextToAdd.text.toString().toInt()
-        print(valueToAdd)
+
         if (valueToAdd in 1..6) {
             listOfNumbers.add(valueToAdd)
             Toast.makeText(this, "Add $valueToAdd", Toast.LENGTH_SHORT).show()
@@ -64,6 +66,7 @@ class CheatScreen : AppCompatActivity() {
         } else {
             Toast.makeText(this, "Du Larry", Toast.LENGTH_SHORT).show()
         }
+
         editTextToAdd.text = null
     }
 

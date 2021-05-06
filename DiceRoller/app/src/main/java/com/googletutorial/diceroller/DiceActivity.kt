@@ -5,34 +5,35 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import java.lang.Exception
-import java.util.*
 
 class DiceActivity : AppCompatActivity() {
 
     private var index = 0
-    private var listOfNumbers = arrayListOf(6,5)
+    private var listOfNumbers = arrayListOf(6, 5)
+    lateinit var diceImage: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_dice)
 
+        diceImage = findViewById(R.id.dice_image)
         val rollButton: Button = findViewById(R.id.roll_button)
+
         try {
             listOfNumbers = intent.extras?.getIntegerArrayList("listOfNumbers")!!
-        } catch (e : Exception) {
+        } catch (e: Exception) {
             throw e
         }
 
         rollButton.setOnClickListener {
             rollDice()
-            if (index < listOfNumbers!!.size -1) index++
+            if (index < listOfNumbers.size - 1) index++
             else index = 0
         }
     }
 
     private fun rollDice() {
-        val randomInt = Random().nextInt(6) + 1
-        val drawableResource = when(listOfNumbers!![index]) {
+        val drawableResource = when (listOfNumbers[index]) {
             1 -> R.drawable.dice_1
             2 -> R.drawable.dice_2
             3 -> R.drawable.dice_3
@@ -40,7 +41,6 @@ class DiceActivity : AppCompatActivity() {
             5 -> R.drawable.dice_5
             else -> R.drawable.dice_6
         }
-        val diceImage: ImageView = findViewById(R.id.dice_image)
         diceImage.setImageResource(drawableResource)
     }
 }
