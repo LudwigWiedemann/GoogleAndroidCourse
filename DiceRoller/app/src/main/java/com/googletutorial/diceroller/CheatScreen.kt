@@ -18,6 +18,7 @@ class CheatScreen : AppCompatActivity() {
         val buttonStart: Button = findViewById(R.id.startCheating_button)
         val buttonAdd: Button = findViewById(R.id.addToList_button)
         val buttonClear: Button = findViewById(R.id.clearList_button)
+        val buttonShowList: Button = findViewById(R.id.showList_button)
         val editTextToAdd: EditText = findViewById(R.id.editTextNumberDecimal)
 
         buttonClear.setOnClickListener {
@@ -31,6 +32,18 @@ class CheatScreen : AppCompatActivity() {
         buttonStart.setOnClickListener {
             startCheating()
         }
+
+        buttonShowList.setOnClickListener{
+            showList()
+        }
+
+
+    }
+
+    private fun showList() {
+        val intent = Intent(this@CheatScreen, ListActivity::class.java)
+        intent.putExtra("listOfNumbers", listOfNumbers)
+        startActivity(intent)
     }
 
     private fun startCheating() {

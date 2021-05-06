@@ -17,6 +17,12 @@
         android:text="@string/clear" />
 
     <Button
+        android:id="@+id/showList_button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Show list" />
+
+    <Button
         android:id="@+id/addToList_button"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
