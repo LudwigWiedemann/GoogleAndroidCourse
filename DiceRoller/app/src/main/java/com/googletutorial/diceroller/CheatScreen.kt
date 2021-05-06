@@ -21,39 +21,50 @@ class CheatScreen : AppCompatActivity() {
         val editTextToAdd: EditText = findViewById(R.id.editTextNumberDecimal)
 
         buttonClear.setOnClickListener {
-            listOfNumbers.clear()
-            Toast.makeText(this, "clear", Toast.LENGTH_SHORT).show()
+            clear()
         }
 
         buttonStart.setOnClickListener {
-            val intent = Intent(this@CheatScreen, MainActivity::class.java)
-
-            if (listOfNumbers.isEmpty()) {
-                repeat(1000) {
-                    listOfNumbers.add(Random().nextInt(6) + 1)
-                }
-            }
-            intent.putExtra("listOfNumbers", listOfNumbers)
-            startActivity(intent)
+            startCheating()
         }
 
         buttonAdd.setOnClickListener {
-            if (editTextToAdd.text.toString() == "") {
-                Toast.makeText(this, "Du Larry", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            val valueToAdd = editTextToAdd.text.toString().toInt()
-            print(valueToAdd)
-            if (valueToAdd in 1..6) {
-                listOfNumbers.add(valueToAdd)
-                Toast.makeText(this, "Add $valueToAdd", Toast.LENGTH_SHORT).show()
-
-            } else {
-                Toast.makeText(this, "Du Larry", Toast.LENGTH_SHORT).show()
-            }
-            editTextToAdd.text = null
-
+            addNumberToList(editTextToAdd)
         }
+    }
+
+    private fun startCheating() {
+        val intent = Intent(this@CheatScreen, DiceActivity::class.java)
+
+        if (listOfNumbers.isEmpty()) {
+            repeat(1000) {
+                listOfNumbers.add(Random().nextInt(6) + 1)
+            }
+        }
+        intent.putExtra("listOfNumbers", listOfNumbers)
+        startActivity(intent)
+    }
+
+    private fun clear() {
+        listOfNumbers.clear()
+        Toast.makeText(this, "clear", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun addNumberToList(editTextToAdd: EditText) {
+        if (editTextToAdd.text.toString() == "") {
+            Toast.makeText(this, "Du Larry", Toast.LENGTH_SHORT).show()
+            return
+        }
+        val valueToAdd = editTextToAdd.text.toString().toInt()
+        print(valueToAdd)
+        if (valueToAdd in 1..6) {
+            listOfNumbers.add(valueToAdd)
+            Toast.makeText(this, "Add $valueToAdd", Toast.LENGTH_SHORT).show()
+
+        } else {
+            Toast.makeText(this, "Du Larry", Toast.LENGTH_SHORT).show()
+        }
+        editTextToAdd.text = null
     }
 
     override fun onPause() {
