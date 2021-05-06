@@ -7,7 +7,7 @@ import android.widget.ImageView
 import java.lang.Exception
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class DiceActivity : AppCompatActivity() {
 
     private var index = 0
     private var listOfNumbers = arrayListOf(6,5)
