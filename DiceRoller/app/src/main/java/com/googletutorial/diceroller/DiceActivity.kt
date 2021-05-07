@@ -18,7 +18,7 @@ class DiceActivity : AppCompatActivity() {
 
     // The diceImage is declared but will be initialized later because it can't be done before the
     // onCreate() function calls setContentView()
-    lateinit var diceImage: ImageView
+    private lateinit var diceImage: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
