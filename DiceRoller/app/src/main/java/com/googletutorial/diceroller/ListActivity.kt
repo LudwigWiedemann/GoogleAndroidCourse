@@ -19,10 +19,11 @@ class ListActivity : AppCompatActivity() {
                 .setAction("Action", null).show()
         }
 
+        // The View is assigned to a value and the list is filled with the data from the intent
         val scrollList: TextView = findViewById(R.id.list_TextView)
         val list = intent.extras!!.getIntegerArrayList("listOfNumbers")
 
-        scrollList.text = ""
+        // Every element in the list is added to the View
         for (number in list!!) {
             val numberString = number.toString()
             scrollList.text = scrollList.text.toString().plus("$numberString \n")
