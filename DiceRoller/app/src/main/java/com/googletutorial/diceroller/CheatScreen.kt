@@ -57,6 +57,7 @@ class CheatScreen : AppCompatActivity() {
 
         intent.putExtra("listOfNumbers", listOfNumbers)
         startActivity(intent)
+        listOfNumbers.clear()
     }
 
     private fun clear() {
@@ -81,10 +82,5 @@ class CheatScreen : AppCompatActivity() {
         }
 
         editTextToAdd.text = null
-    }
-
-    override fun onPause() {
-        super.onPause()
-        listOfNumbers.clear()
     }
 }
