@@ -50,7 +50,7 @@ class CheatScreen : AppCompatActivity() {
     private fun startCheating() {
         val intent = Intent(this@CheatScreen, DiceActivity::class.java)
 
-        // If the user hasn't added any numbers, the lsit should contain 1000 random numbers
+        // If the user hasn't added any numbers, the list should contain 1000 random numbers
         // between 1 and 6
         if (listOfNumbers.isEmpty()) {
             repeat(1000) {
