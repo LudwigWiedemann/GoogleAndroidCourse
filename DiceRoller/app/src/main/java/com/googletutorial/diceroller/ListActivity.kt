@@ -18,6 +18,8 @@ class ListActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
+        // delete this next line
+        println("Hello World")
 
         // The View is assigned to a value and the list is filled with the data from the intent
         val scrollList: TextView = findViewById(R.id.list_TextView)
