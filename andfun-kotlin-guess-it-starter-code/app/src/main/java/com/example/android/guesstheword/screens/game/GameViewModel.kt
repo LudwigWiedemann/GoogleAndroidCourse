@@ -1,11 +1,33 @@
 package com.example.android.guesstheword.screens.game
 
+import android.os.CountDownTimer
+import android.text.format.DateUtils
 import android.util.Log
+import androidx.core.database.DatabaseUtilsCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class GameViewModel: ViewModel() {
+
+    companion object {
+        // This is when the game is over
+        private const val DONE = 0L
+
+        //number of milliseconds in one se
+        private const val ONE_SECOND = 1000L
+
+        // total time of the game
+        private const val COUNTDOWN_TIME = 10000L
+    }
+
+    private val timer: CountDownTimer
+
+    // the current time the timer holds
+    private val _time = MutableLiveData<Long>()
+    val time: LiveData<Long>
+        get() = _time
+
     // The current word
     private val _word = MutableLiveData<String>()
     val word: LiveData<String>
@@ -24,19 +46,30 @@ class GameViewModel: ViewModel() {
     // the list of words
     private lateinit var wordList: MutableList<String>
 
-
-
     init  {
-        Log.i("GameViewModel", "GameViewModel created!")
         resetList()
         nextWord()
         _score.value = 0
-        nextWord()
+        _time.value = COUNTDOWN_TIME / 1000
+        // creates a timer that triggers the end of the game
+        timer = object : CountDownTimer(COUNTDOWN_TIME, ONE_SECOND) {
+            override fun onTick(millisUntilFinished: Long) {
+                _time.value = time.value?.minus(1)
+            }
+
+            override fun onFinish() {
+                if(_time.value == DONE) {
+                    _eventFameFinish.value = true
+                }
+            }
+        }
+        timer.start()
+
     }
 
     override fun onCleared() {
         super.onCleared()
-        Log.i("GameViewModel", "GameViewModel destroyed")
+        timer.cancel()
     }
 
     /**
@@ -45,7 +78,7 @@ class GameViewModel: ViewModel() {
     private fun nextWord() {
         //Select and remove a word from the list
         if (wordList.isEmpty()) {
-            _eventFameFinish.value = true
+            resetList()
         } else {
             _word.value = wordList.removeAt(0)
         }
